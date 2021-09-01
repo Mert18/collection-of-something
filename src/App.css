@@ -1,21 +1,23 @@
-.app {
-}
-
 .header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  background-color: #151515;
+  color: white;
   min-height: 30vh;
 }
 .header button {
   padding: 0.5rem 1rem;
   margin-top: 2rem;
+  text-transform: uppercase;
 }
 
 .art {
   position: relative;
+background-color: #151515;
+min-height: 80vh;
 }
 
 .image {
@@ -32,18 +34,18 @@
 
 .properties {
   position: absolute;
-  top: 0;
-  left: 0%;
+  top: 10%;
+  left: -100%;
   background: black;
   color: white;
   width: 18rem;
   padding: 1rem;
-  transition: all 0.5s ease;
+  transition: all 1s ease;
 }
 
 .image:hover ~ .properties {
   left: 0%;
-  transition: all 0.5s ease;
+  transition: all 1 ease;
 }
 
 .properties:hover {
@@ -63,3 +65,4 @@
   color: white;
   text-align: center;
 }
+

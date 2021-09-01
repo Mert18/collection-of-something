@@ -44,7 +44,6 @@ const App = () => {
         flag = 0;
       }
     }
-    console.log(res.data);
     if (flag === 1) {
       setArt(res.data);
     }
