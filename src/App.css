@@ -1,50 +1,65 @@
-.App{
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 25px;
-  min-height: 100vh;
+.app {
 }
 
-.header{
-  grid-column: 1 / -1;
-  width: 80%;
-  justify-self: center;
+.header {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-}
-
-.header-input {
-  width: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
+  min-height: 30vh;
 }
-.header-input input{
-  width: 70%;
-  height: 10vh;
-  font-size: 1.2rem;
-  padding: 1.2rem;
+.header button {
+  padding: 0.5rem 1rem;
+  margin-top: 2rem;
 }
 
-.filter-list{
-  list-style: none;
+.art {
+  position: relative;
+}
+
+.image {
+  position: relative;
   display: flex;
-  margin-top: 3rem;
+  justify-content: center;
 }
 
-.header-filters ul li{
-  padding: 2rem;
+.image img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-
-.main{
-  grid-column: 1 / -1;
-  width: 90%;
-  justify-self: center;
-  padding: 2rem;
-  border: 3px solid red;
+.properties {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  background: black;
+  color: white;
+  width: 18rem;
+  padding: 1rem;
+  transition: all 0.5s ease;
 }
 
+.image:hover ~ .properties {
+  left: 0%;
+  transition: all 0.5s ease;
+}
 
+.properties:hover {
+  left: 0%;
+}
+
+.prop-group {
+  padding: 1rem;
+}
+
+.prop-group h3 {
+  color: gray;
+  text-align: center;
+  text-transform: uppercase;
+}
+.prop-group p {
+  color: white;
+  text-align: center;
+}

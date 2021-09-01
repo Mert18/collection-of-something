@@ -1,60 +1,91 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import React from "react";
 
-function App() {
-  const [query, setQuery] = useState("");
-  const [list, setList] = useState<any>([]);
+interface ArtType {
+  id: number;
+  title: string;
+  date_display: string;
+  artist_display: string;
+  place_of_origin: string;
+  artist_title: string;
+  term_titles: string[];
+  image_id?: string;
+}
 
-  const fetchPokemons = async () => {
-    let firstNum = Math.trunc(Math.random() * 350) + 1;
-    let secondNum = firstNum + 20;
-    for (let i = firstNum; i < secondNum; i++) {
-      const pokemon = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${i}`
-      ).then((response) => response.json());
-      list.push(pokemon);
+const firstArt = {
+  id: 9614,
+  title: "Haunted House",
+  date_display: "1930",
+  artist_display: "Morris Kantor American, born Russia",
+  place_of_origin: "United States",
+  artist_title: "Morris Kantor",
+  term_titles: ["oil on canvas", "Surrealism", "Century of Progress"],
+  image_id: "0330a6dd-774e-eff1-0073-2be5f85b81d0",
+};
+
+const App = () => {
+  const [art, setArt] = React.useState(firstArt);
+  const [btn, setBtn] = React.useState("block");
+
+  const handleChange = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setBtn("none");
+    let res = null;
+    let flag = 0;
+    while (flag === 0) {
+      let randomNumber = Math.trunc(Math.random() * 48000) + 2000;
+      res = await fetch(`https://api.artic.edu/api/v1/artworks/${randomNumber}`)
+        .then((res) => res.json())
+        .catch((err) => console.error(err));
+
+      if (res?.data?.image_id) {
+        flag = 1;
+      } else {
+        flag = 0;
+      }
     }
+    console.log(res.data);
+    if (flag === 1) {
+      setArt(res.data);
+    }
+
+    setTimeout(() => {
+      setBtn("block");
+    }, 2000);
   };
-
-  useEffect(() => {
-    fetchPokemons();
-  }, []);
   return (
-    <div className="App">
+    <div className="app">
       <div className="header">
-        <div className="header-input">
-          <input type="text" onChange={(e) => setQuery(e.target.value)} />
-        </div>
-        <div className="header-filters">
-          <ul className="filter-list">
-            <li>Power Rangers</li>
-            <li>Purple Fighters</li>
-            <li>Orange Warriors</li>
-            <li>Hijacked Old Men</li>
-          </ul>
-        </div>
+        <h1>Collection of Something</h1>
+        <p>I fetch random art from Art Institute of Chicago API</p>
+        <button style={{ display: btn }} onClick={handleChange}>
+          Next
+        </button>
       </div>
-
-      <div className="main">
-        <ul className="card-list">
-          {list.map((card) => (
-            <li key={card.id} className="card">
-              <h2>{card.name}</h2>
-              <p>Experience: {card.base_experience}</p>
-              <p>Weight: {card.weight}</p>
-              <p>Height: {card.height}</p>
-              <img
-                src={card.sprites.other.dream_world.front_default}
-                width="150px"
-                height="150px"
-              />
-            </li>
-          ))}
-          ;
-        </ul>
+      <div className="art">
+        <div className="image">
+          <img
+            src={`https://www.artic.edu/iiif/2/${art.image_id}/full/843,/0/default.jpg`}
+            alt={art.title}
+          />
+        </div>
+        <div className="properties">
+          <div className="prop-group">
+            <h3>Title</h3>
+            <p>{art.title}</p>
+          </div>
+          <div className="prop-group">
+            <h3>Date Display</h3>
+            <p>{art.date_display}</p>
+          </div>
+          <div className="prop-group">
+            <h3>Artist</h3>
+            <p>{art.artist_title}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;
